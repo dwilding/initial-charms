@@ -233,6 +233,7 @@ dependencies = [
 integration = [
     { name = "jubilant" },
     { name = "pytest" },
+    { name = "pyyaml" },
 ]
 lint = [
     { name = "codespell" },
@@ -255,6 +256,7 @@ requires-dist = [
 integration = [
     { name = "jubilant" },
     { name = "pytest" },
+    { name = "pyyaml" },
 ]
 lint = [
     { name = "codespell" },

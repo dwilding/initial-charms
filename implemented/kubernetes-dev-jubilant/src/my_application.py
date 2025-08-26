@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 
 def get_version() -> str | None:
     """Get the running version of the workload."""
+    # You'll need to implement this function (or remove it if not needed).
     response = requests.get("http://localhost:8000/version")
     resonse_data = response.json()
     return resonse_data["version"]
