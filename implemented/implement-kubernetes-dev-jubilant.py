@@ -1,22 +1,19 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import pathlib
 import subprocess
 
 import rewriter
 
-CHARM = pathlib.Path('kubernetes-dev-jubilant')
-
 
 def main():
-    r = rewriter.Rewriter(CHARM / 'charmcraft.yaml')
+    r = rewriter.Rewriter('charmcraft.yaml')
     r.next_by_prefix(
         prefix='    upstream-source: some-repo/some-image:some-tag',
         change='    upstream-source: ghcr.io/canonical/api_demo_server:1.0.1',
     )
     r.save()
 
-    r = rewriter.Rewriter(CHARM / 'src/charm.py')
+    r = rewriter.Rewriter('src/charm.py')
     r.next_by_prefix('    def _on_pebble_ready')
     r.insert(
         '        command = "uvicorn api_demo_server.app:app --host=0.0.0.0 --port=8000"'
@@ -27,7 +24,7 @@ def main():
     )
     r.save()
 
-    r = rewriter.Rewriter(CHARM / 'src/my_application.py')
+    r = rewriter.Rewriter('src/my_application.py')
     r.next_by_prefix('import logging')
     r.insert('')
     r.insert('import requests')
@@ -38,7 +35,7 @@ def main():
     r.insert('    return resonse_data["version"]')
     r.save()
 
-    r = rewriter.Rewriter(CHARM / 'tests/integration/test_charm.py')
+    r = rewriter.Rewriter('tests/integration/test_charm.py')
     r.next_by_prefix(prefix='@pytest.mark.skip', change='# @pytest.mark.skip')
     r.next_by_prefix('    assert version', remove_line=True)
     r.insert(
@@ -46,10 +43,8 @@ def main():
     )
     r.save()
 
-    subprocess.check_call(['uv', 'add', 'requests'], cwd=CHARM)
-    subprocess.check_call(['tox', '-e', 'format'], cwd=CHARM)
-    subprocess.check_call(['tox', '-e', 'lint'], cwd=CHARM)
-    subprocess.check_call(['tox', '-e', 'unit'], cwd=CHARM)
+    subprocess.check_call(['uv', 'add', 'requests'])
+    subprocess.check_call(['tox', '-e', 'format'])
 
 
 if __name__ == '__main__':

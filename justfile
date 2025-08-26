@@ -10,6 +10,12 @@ init:
     CHARMCRAFT_DEVELOPER=1 charmcraft init --profile "$profile" --name my-application
 
 [no-cd]
+check:
+    #!/usr/bin/env bash
+    tox -e lint
+    tox -e unit
+
+[no-cd]
 lock:
     #!/usr/bin/env bash
     if [ -z "$(find . -mindepth 1 -maxdepth 1)" ]; then
@@ -32,8 +38,17 @@ implement:
     fi
     shopt -s dotglob
     cp -r * "../implemented/$dir"
-    cd ../implemented
-    "./implement-$dir.py"
+    cd "../implemented/$dir"
+    rm -rf .ruff_cache .tox .coverage
+    "../implement-$dir.py"
+
+[no-cd]
+check-implemented:
+    #!/usr/bin/env bash
+    dir=$(basename "$PWD")
+    cd "../implemented/$dir"
+    tox -e lint
+    tox -e unit
 
 [no-cd]
 rm:
