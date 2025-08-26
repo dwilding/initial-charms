@@ -1,0 +1,6 @@
+[tool.ruff]
+exclude = [
+    "kubernetes-*",
+    "machine-*",
+]
+format.quote-style = "single"

@@ -23,7 +23,28 @@ lock:
     sed 's/my-application/{{{{ name }}/g' uv.lock > "../.templates/init-$profile/uv.lock.j2"
 
 [no-cd]
+implement:
+    #!/usr/bin/env bash
+    dir=$(basename "$PWD")
+    if [ -n "$(find "../implemented/$dir" -mindepth 1 -maxdepth 1)" ]; then
+        echo "The implemented directory isn't empty"
+        exit 1
+    fi
+    shopt -s dotglob
+    cp -r * "../implemented/$dir"
+    cd ../implemented
+    "./implement-$dir.py"
+
+[no-cd]
 rm:
     #!/usr/bin/env bash
+    shopt -s dotglob
+    rm -rf *
+
+[no-cd]
+rm-implemented:
+    #!/usr/bin/env bash
+    dir=$(basename "$PWD")
+    cd "../implemented/$dir"
     shopt -s dotglob
     rm -rf *
