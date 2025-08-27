@@ -1,3 +1,6 @@
+# Copyright 2025 david.wilding@canonical.com
+# See LICENSE file for licensing details.
+
 [project]
 name = "my-application"
 version = "0.0.1"
