@@ -25,9 +25,11 @@ implement: _after-init _before-implement
     #!/usr/bin/env bash
     dir=$(basename "$PWD")
     shopt -s dotglob
+    echo "Copying the charm to ../implemented/$dir"
     cp -r * "../implemented/$dir"
     cd "../implemented/$dir"
     rm -rf .ruff_cache .tox .coverage
+    echo "Patching the code in ../implemented/$dir"
     "../implement-$dir.py"
 
 [no-cd]
