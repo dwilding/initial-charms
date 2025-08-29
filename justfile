@@ -23,11 +23,11 @@ implement: _dir _after-init _before-implement
     #!/usr/bin/env bash
     profile=$(basename "$PWD")
     shopt -s dotglob
-    echo "Copying the charm to ../implemented/$profile"
+    echo "Copying the charm to <root>/implemented/$profile"
     cp -r * "../implemented/$profile"
     cd "../implemented/$profile"
     rm -rf .ruff_cache .tox .coverage
-    echo "Patching the code in ../implemented/$profile"
+    echo "Patching the code in <root>/implemented/$profile"
     "../implement-$profile.py"
 
 [no-cd]
