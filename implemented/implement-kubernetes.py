@@ -15,8 +15,10 @@ def main():
 
     r = rewriter.Rewriter('src/charm.py')
     r.next_by_prefix('    def _on_pebble_ready')
+    r.next_by_prefix('        layer')
     r.insert(
-        '        command = "uvicorn api_demo_server.app:app --host=0.0.0.0 --port=8000"'
+        '        command = "uvicorn api_demo_server.app:app --host=0.0.0.0 --port=8000"',
+        offset=-1,
     )
     r.next_by_prefix(
         prefix='                    "command": "/bin/foo"',

@@ -26,9 +26,9 @@ class Rewriter:
                 return
         raise ValueError('no matching line')
 
-    def insert(self, new: str):
+    def insert(self, new: str, *, offset: int = 0):
         """Insert a line at the current location."""
-        self._lines.insert(self._first_line_index, new)
+        self._lines.insert(self._first_line_index + offset, new)
         self._first_line_index += 1
 
     def save(self):
