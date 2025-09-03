@@ -12,7 +12,7 @@ import yaml
 
 logger = logging.getLogger(__name__)
 
-METADATA = yaml.safe_load(pathlib.Path("./charmcraft.yaml").read_text())
+METADATA = yaml.safe_load(pathlib.Path("charmcraft.yaml").read_text())
 
 
 def test_deploy(charm: pathlib.Path, juju: jubilant.Juju):
@@ -20,7 +20,7 @@ def test_deploy(charm: pathlib.Path, juju: jubilant.Juju):
     resources = {
         "some-container-image": METADATA["resources"]["some-container-image"]["upstream-source"]
     }
-    juju.deploy(f"./{charm}", app="my-application", resources=resources)
+    juju.deploy(charm.resolve(), app="my-application", resources=resources)
     juju.wait(jubilant.all_active)
 
 
