@@ -17,5 +17,5 @@ jobs:
         uses: astral-sh/setup-uv@v6
       - name: Lint
         run: |
-          cd .implemented
+          cd .implement
           uvx --from rust-just just lint
