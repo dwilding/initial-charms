@@ -14,15 +14,17 @@ def main():
     r.save()
 
     r = rewriter.Rewriter('src/charm.py')
-    r.next_by_prefix('    def _on_pebble_ready')
-    r.next_by_prefix('        layer')
+    r.set_indent(4)
+    r.next_by_prefix('def _on_pebble_ready')
+    r.next_by_prefix('    layer')
     r.insert(
-        '        command = "uvicorn api_demo_server.app:app --host=0.0.0.0 --port=8000"',
+        '    command = "uvicorn api_demo_server.app:app --host=0.0.0.0 --port=8000"',
         offset=-1,
     )
+    r.set_indent(5 * 4)
     r.next_by_prefix(
-        prefix='                    "command": "/bin/foo"',
-        change='                    "command": command',
+        prefix='"command": "/bin/foo"',
+        change='"command": command',
     )
     r.save()
 
@@ -32,13 +34,17 @@ def main():
     r.insert('import requests')
     r.next_by_prefix('def get_version()')
     r.next_by_prefix('    return', remove_line=True)
-    r.insert('    response = requests.get("http://localhost:8000/version")')
-    r.insert('    resonse_data = response.json()')
-    r.insert('    return resonse_data["version"]')
+    r.insert("""\
+    response = requests.get("http://localhost:8000/version")
+    resonse_data = response.json()
+    return resonse_data["version"]""")
     r.save()
 
     r = rewriter.Rewriter('tests/integration/test_charm.py')
-    r.next_by_prefix(prefix='@pytest.mark.skip', change='# @pytest.mark.skip')
+    r.next_by_prefix(
+        prefix='@pytest.mark.skip',
+        change='# @pytest.mark.skip',
+    )
     r.next_by_prefix('    assert version', remove_line=True)
     r.insert(
         '    assert version == "1.0.0"  # (Bug) workload ought to return 1.0.1 instead.'
