@@ -4,7 +4,7 @@ import pathlib
 class Rewriter:
     """Modify a file one line at a time."""
 
-    def __init__(self, file: pathlib.Path):
+    def __init__(self, file: str | pathlib.Path):
         self.file = pathlib.Path(file)
         self._lines = self.file.read_text().splitlines()
         self._first_line_index = 0
