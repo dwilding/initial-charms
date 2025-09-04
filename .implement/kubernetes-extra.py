@@ -41,6 +41,7 @@ def main():
     r.save()
 
     r = rewriter.Rewriter('tests/integration/test_charm.py')
+    r.next_by_prefix('import pytest', remove_line=True)
     r.next_by_prefix(
         prefix='@pytest.mark.skip',
         change='# @pytest.mark.skip',
