@@ -28,7 +28,7 @@ def test_deploy(charm: pathlib.Path, juju: jubilant.Juju):
 # remove the @pytest.mark.skip line to enable this test.
 # Alternatively, remove this test if you don't need it.
 # @pytest.mark.skip(reason="my_application.get_version is not implemented")
-def test_workload_version_is_set(juju: jubilant.Juju):
+def test_workload_version_is_set(charm: pathlib.Path, juju: jubilant.Juju):
     """Check that the correct version of the workload is running."""
     version = juju.status().apps["my-application"].version
     assert version == "1.0.0"  # (Bug) workload ought to return 1.0.1 instead.
