@@ -1,0 +1,21 @@
+name: Implemented
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  implemented:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Implement kubernetes-extra
+        run: uvx --from rust-just just kubernetes-extra
+      - name: Make sure nothing changed
+        run: git diff --exit-code
