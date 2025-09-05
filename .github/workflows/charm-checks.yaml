@@ -1,0 +1,34 @@
+name: Code checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  charm-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install tox and tox-uv
+        run: uv tool install tox --with tox-uv
+      - name: Check kubernetes
+        run: |
+          cd kubernetes
+          tox -e lint
+          tox -e unit
+      - name: Check kubernetes-extra
+        run: |
+          cd kubernetes-extra
+          tox -e lint
+          tox -e unit
+      - name: Check machine
+        run: |
+          cd machine
+          tox -e lint
+          tox -e unit
