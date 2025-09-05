@@ -14,10 +14,10 @@ class Rewriter:
         """Set the number of spaces for indentation."""
         self._indent = ' ' * length
 
-    def next_p(self, prefix: str, *, change: str | None = None, remove_line: bool = False):
+    def fwd(self, prefix: str, *, change: str | None = None, remove_line: bool = False):
         """Set the current location to the next line that matches a prefix."""
         # To help make calling code more readable, it's important that the name of this method has
-        # six characters, to align with insert(). It's also important that 'prefix' and 'change'
+        # three characters, to align with add(). It's also important that 'prefix' and 'change'
         # have the same number of characters.
         prefix_with_indent = self._indent + prefix
         for line_index in range(self._first_line_index, len(self._lines)):
@@ -35,7 +35,7 @@ class Rewriter:
                 return
         raise ValueError('no matching line')
 
-    def insert(self, new: str, *, offset: int = 0):
+    def add(self, new: str, *, offset: int = 0):
         """Insert lines at the current location."""
         new_lines = new.split('\n')
         for new_line in new_lines:
