@@ -18,10 +18,7 @@ def main():
     r.set_indent(4)
     r.fwd('def _on_pebble_ready')
     r.fwd('    layer')
-    r.add(
-        '    command = "uvicorn api_demo_server.app:app --host=0.0.0.0 --port=8000"',
-        offset=-1,
-    )
+    r.add('    command = "uvicorn api_demo_server.app:app --host=0.0.0.0 --port=8000"', offset=-1)
     r.set_indent(5 * 4)
     r.fwd(
         prefix='"command": "/bin/foo"',
@@ -43,7 +40,7 @@ def main():
     return resonse_data["version"]""")
     r.save()
 
-    # Format the charm code (just in case)
+    # Format the charm code (just in case).
     subprocess.check_call(['tox', '-e', 'format'])
 
 
