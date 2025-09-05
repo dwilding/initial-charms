@@ -1,4 +1,4 @@
-name: Code checks
+name: Charm checks
 
 on:
   pull_request:
