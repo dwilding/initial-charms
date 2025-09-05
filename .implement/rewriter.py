@@ -14,8 +14,11 @@ class Rewriter:
         """Set the number of spaces for indentation."""
         self._indent = ' ' * length
 
-    def next_by_prefix(self, prefix: str, *, change: str | None = None, remove_line: bool = False):
+    def next_p(self, prefix: str, *, change: str | None = None, remove_line: bool = False):
         """Set the current location to the next line that matches a prefix."""
+        # To help make calling code more readable, it's important that the name of this method has
+        # six characters, to align with insert(). It's also important that 'prefix' and 'change'
+        # have the same number of characters.
         prefix_with_indent = self._indent + prefix
         for line_index in range(self._first_line_index, len(self._lines)):
             line = self._lines[line_index]
