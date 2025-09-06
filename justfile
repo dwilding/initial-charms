@@ -41,7 +41,7 @@ _charmcraft-init +profiles:
         echo "CHARMCRAFT_DIR is not set"
         exit 1
     fi
-    if [ ! -d "$CHARMCRAFT_DIR/.ven" ]; then
+    if [ ! -d "$CHARMCRAFT_DIR/.venv" ]; then
         echo "Environment does not exist: $CHARMCRAFT_DIR/.venv"
         echo "Have you run 'make setup' in the Charmcraft directory?"
         exit 1
