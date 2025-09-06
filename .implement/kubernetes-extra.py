@@ -51,7 +51,7 @@ def main():
     r.add('    assert version == "1.0.0"  # (Bug) workload ought to return 1.0.1 instead.')
     r.save()
 
-    # Format the charm code (just in case)
+    # Format the charm code (just in case).
     subprocess.check_call(['tox', '-e', 'format'])
 
 

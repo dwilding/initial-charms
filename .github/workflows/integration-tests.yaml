@@ -1,0 +1,57 @@
+name: Integration tests
+
+on:
+  push:
+    branches:
+      - main
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  integration-kubernetes-extra:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-kubernetes-extra
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install tox and tox-uv
+        run: uv tool install tox --with tox-uv
+      - name: Install Concierge
+        run: sudo snap install --classic concierge
+      - name: Prepare for deploying K8s charms
+        run: sudo concierge prepare -p microk8s
+      - name: Pack charm
+        run: |
+          cd kubernetes-extra
+          charmcraft pack
+      - name: Run integration tests
+        run: |
+          cd kubernetes-extra
+          tox -e integration
+
+  integration-machine:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-machine
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Install tox and tox-uv
+        run: uv tool install tox --with tox-uv
+      - name: Install Concierge
+        run: sudo snap install --classic concierge
+      - name: Prepare for deploying machine charms
+        run: sudo concierge prepare -p machine
+      - name: Pack charm
+        run: |
+          cd machine
+          charmcraft pack
+      - name: Run integration tests
+        run: |
+          cd machine
+          tox -e integration
