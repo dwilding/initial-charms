@@ -2,19 +2,19 @@ _default:
     @just --list --unsorted
 
 [doc("Initialize a K8s charm and a machine charm. CHARMCRAFT_DIR must be set")]
-init tox: (_charmcraft-init "kubernetes" "machine") (_tox "kubernetes" tox) (_tox "machine" tox)
+init tox="": (_charmcraft-init "kubernetes" "machine") (_tox "kubernetes" tox) (_tox "machine" tox)
 
 [doc("Initialize a K8s charm. CHARMCRAFT_DIR must be set")]
-kubernetes tox: (_charmcraft-init "kubernetes") (_tox "kubernetes" tox)
+kubernetes tox="": (_charmcraft-init "kubernetes") (_tox "kubernetes" tox)
 
 [doc("Implement a more complete version of the K8s charm")]
 [working-directory: "kubernetes-extra"]
-kubernetes-extra tox: _init-kubernetes-extra && (_tox "kubernetes-extra" tox)
+kubernetes-extra tox="": _init-kubernetes-extra && (_tox "kubernetes-extra" tox)
     @echo "{{BOLD}}Implementing charm: kubernetes-extra{{NORMAL}}"
     @uv run --project ../.implement ../.implement/kubernetes-extra.py
 
 [doc("Initialize a machine charm. CHARMCRAFT_DIR must be set")]
-machine tox: (_charmcraft-init "machine") (_tox "machine" tox)
+machine tox="": (_charmcraft-init "machine") (_tox "machine" tox)
 
 [doc("Generate uv.lock templates for the K8s and machine charms")]
 lock: lock-kubernetes lock-machine
