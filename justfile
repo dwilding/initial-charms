@@ -64,6 +64,7 @@ _init-kubernetes-extra:
     @test -d kubernetes
     @rm -rf kubernetes-extra
     @cp -r kubernetes kubernetes-extra
+    @cd kubernetes-extra && rm -rf .coverage .ruff_cache .tox .venv
 
 _tox charm envs:
     #!/bin/sh
