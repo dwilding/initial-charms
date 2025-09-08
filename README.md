@@ -35,9 +35,10 @@ The list of environments after `just init` is passed to `tox -e <environments>` 
 
 ### Integration tests
 
-Integration tests require a Juju controller.
+Integration tests require a Juju controller. You can use [Concierge](https://github.com/canonical/concierge) to bootstrap a Juju controller.
 
-Don't run integration tests using `just ... integration`. Instead, in each directory, run `charmcraft pack` followed by `tox -e integration`.
+> [!IMPORTANT]
+> Don't run integration tests using `just ... integration`. Instead, in each directory, run `charmcraft pack` followed by `tox -e integration`.
 
 The machine charm's integration tests should pass. The charm goes active without installing a workload.
 
