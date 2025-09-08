@@ -14,8 +14,8 @@ In the Charmcraft source, profiles are stored as .j2 template files. For example
 You'll need:
 
 - The Charmcraft source. We'll assume this is located at `~/charmcraft`.
-- A virtual environment in the Charmcraft source. To create a virtual environment, run `make setup` in the Charmcraft source.
-- [just](https://github.com/casey/just)
+- A virtual environment in the Charmcraft source. To create one, run `make setup` in the Charmcraft source.
+- [just](https://just.systems/man/en/), [uv](https://docs.astral.sh/uv/), and [tox](https://tox.wiki/en/). To install tox, run `uv tool install tox --with tox-uv`.
 
 After editing .j2 files in the Charmcraft source, run the following command in this repo:
 
@@ -35,7 +35,9 @@ The list of environments after `just init` is passed to `tox -e <environments>` 
 
 ### Integration tests
 
-Don't run integration tests using `just ... integration`. Instead, in each charm directory, run `charmcraft pack` followed by `tox -e integration`.
+Integration tests require a Juju controller.
+
+Don't run integration tests using `just ... integration`. Instead, in each directory, run `charmcraft pack` followed by `tox -e integration`.
 
 The machine charm's integration tests should pass. The charm goes active without installing a workload.
 
