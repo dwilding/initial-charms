@@ -4,7 +4,7 @@ import rewriter
 
 
 def main():
-    # Change the OCI image to the demo server from the K8s charm tutorial:
+    # Change the container image to the demo server from the K8s charm tutorial:
     # https://documentation.ubuntu.com/ops/latest/tutorial/from-zero-to-hero-write-your-first-kubernetes-charm/study-your-application/
     r = rewriter.Rewriter('charmcraft.yaml')
     r.fwd(
@@ -26,7 +26,7 @@ def main():
     )
     r.save()
 
-    # Implement get_version() in src/my_application.py, by requesting the version over HTTP.
+    # Implement get_version() in the workload module, by requesting the version over HTTP.
     subprocess.check_call(['uv', 'add', '--quiet', 'requests'])  # Add package to charm venv.
     r = rewriter.Rewriter('src/my_application.py')
     r.fwd('import logging')
