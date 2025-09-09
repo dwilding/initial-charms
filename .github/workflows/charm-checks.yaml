@@ -20,15 +20,12 @@ jobs:
       - name: Check kubernetes
         run: |
           cd kubernetes
-          tox -e lint
-          tox -e unit
+          tox -e lint,unit
       - name: Check kubernetes-extra
         run: |
           cd kubernetes-extra
-          tox -e lint
-          tox -e unit
+          tox -e lint,unit
       - name: Check machine
         run: |
           cd machine
-          tox -e lint
-          tox -e unit
+          tox -e lint,unit
