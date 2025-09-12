@@ -1,7 +1,6 @@
 name: Current with Charmcraft
 
 on:
-  pull_request:
   push:
     branches:
       - main
