@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright 2025 david.wilding@canonical.com
+# Copyright 2025 Charmer
 # See LICENSE file for licensing details.
 
 """Charm the application."""

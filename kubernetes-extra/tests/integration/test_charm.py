@@ -1,4 +1,4 @@
-# Copyright 2025 david.wilding@canonical.com
+# Copyright 2025 Charmer
 # See LICENSE file for licensing details.
 #
 # The integration tests use the Jubilant library. See https://documentation.ubuntu.com/jubilant/
