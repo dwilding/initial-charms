@@ -1,0 +1,36 @@
+name: Current with Charmcraft
+
+on:
+  push:
+    branches:
+      - main
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  current:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this repo
+        uses: actions/checkout@v5
+        with:
+          path: initial-charms
+      - name: Checkout Charmcraft
+        uses: actions/checkout@v5
+        with:
+          repository: canonical/charmcraft
+          path: charmcraft
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Set up Charmcraft
+        run: |
+          cd charmcraft
+          make setup
+      - name: Generate charms
+        run: |
+          cd initial-charms
+          CHARMCRAFT_DIR=../charmcraft uvx --from rust-just just init
+      - name: Make sure nothing changed
+        run: |
+          cd initial-charms
+          git diff --exit-code
