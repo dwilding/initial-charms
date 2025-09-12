@@ -1,3 +1,6 @@
+# Copyright 2025 david.wilding@canonical.com
+# See LICENSE file for licensing details.
+
 [project]
 name = "my-application"
 version = "0.0.1"
@@ -8,7 +11,7 @@ requires-python = ">=3.10"
 # dependencies of any charmlibs that the charm uses (copy the dependencies from PYDEPS).
 dependencies = [
     "ops>=3,<4",
-    "requests>=2.32.4",
+    "requests>=2.32.5",
 ]
 
 [dependency-groups]
@@ -26,9 +29,9 @@ unit = [
 ]
 # Dependencies of integration tests
 integration = [
-    "juju",
+    "jubilant",
     "pytest",
-    "pytest-operator",
+    "PyYAML",
 ]
 
 # Testing tools configuration
@@ -71,7 +74,4 @@ max-complexity = 10
 skip = "build,lib,venv,icon.svg,.tox,.git,.mypy_cache,.ruff_cache,.coverage"
 
 [tool.pyright]
-include = [
-    "src/**/*.py",
-    "tests/**/*.py",
-]
+include = ["src", "tests"]

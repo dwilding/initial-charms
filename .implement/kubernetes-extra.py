@@ -40,6 +40,17 @@ def main():
     return resonse_data["version"]""")
     r.save()
 
+    # Enable the integration test that checks the workload version.
+    r = rewriter.Rewriter('tests/integration/test_charm.py')
+    r.fwd('import pytest', remove_line=True)
+    r.fwd(
+        prefix='@pytest.mark.skip',
+        change='# @pytest.mark.skip',
+    )
+    r.fwd('    assert version', remove_line=True)
+    r.add('    assert version == "1.0.0"  # (Bug) workload ought to return 1.0.1 instead.')
+    r.save()
+
     # Format the charm code (just in case).
     subprocess.check_call(['tox', '-e', 'format'])
 
