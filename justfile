@@ -51,11 +51,8 @@ _charmcraft-init +profiles:
     for profile in {{profiles}}; do
         echo "{{BOLD}}Generating charm: $profile{{NORMAL}}"
         rm -rf $profile
-        mkdir $profile
-        cd $profile
-        echo "{{BOLD}}CHARMCRAFT_DEVELOPER=1 charmcraft init --profile $profile --name my-application{{NORMAL}}"
-        CHARMCRAFT_DEVELOPER=1 charmcraft init --profile $profile --name my-application
-        cd - > /dev/null
+        echo "{{BOLD}}CHARMCRAFT_DEVELOPER=1 charmcraft init --profile $profile --project-dir $profile --name my-application --author Charmer{{NORMAL}}"
+        CHARMCRAFT_DEVELOPER=1 charmcraft init --profile $profile --project-dir $profile --name my-application --author Charmer
     done
     echo "{{BOLD}}Deactivating Charmcraft environment"
     deactivate
