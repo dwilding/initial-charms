@@ -18,4 +18,6 @@ jobs:
       - name: Lint
         run: |
           cd .implement
+          uv lock
+          git diff --exit-code
           uvx --from rust-just just lint

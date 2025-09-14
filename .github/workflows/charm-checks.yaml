@@ -20,7 +20,13 @@ jobs:
       - name: Check kubernetes
         run: |
           cd kubernetes
+          uv lock
+          git diff --exit-code
           tox -e lint,unit
+      - name: Implement kubernetes-extra
+        run: |
+          uvx --from rust-just just kubernetes-extra
+          git diff --exit-code
       - name: Check kubernetes-extra
         run: |
           cd kubernetes-extra
@@ -28,4 +34,6 @@ jobs:
       - name: Check machine
         run: |
           cd machine
+          uv lock
+          git diff --exit-code
           tox -e lint,unit
