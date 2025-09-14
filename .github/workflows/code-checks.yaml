@@ -19,3 +19,4 @@ jobs:
         run: |
           cd .implement
           uvx --from rust-just just lint
+          git diff --exit-code  # In case 'uv run' changed the lockfile.
