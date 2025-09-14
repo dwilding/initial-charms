@@ -30,6 +30,8 @@ jobs:
       - name: Check kubernetes-extra
         run: |
           cd kubernetes-extra
+          uv lock
+          git diff --exit-code
           tox -e lint,unit
       - name: Check machine
         run: |
